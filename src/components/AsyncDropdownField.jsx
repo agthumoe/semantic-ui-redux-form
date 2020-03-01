@@ -102,11 +102,11 @@ const AsnycDropdownField = ({
   useEffect(() => {
     setLoading(true);
     fetch(api)
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((response) => {
         setLoading(false);
         setData(
-          _.map(response, x => ({
+          _.map(response, (x) => ({
             key: x[keyFieldName],
             text: x[textFieldName],
             value: x[valueFieldName],
@@ -132,11 +132,11 @@ const AsnycDropdownField = ({
         if (searchBy && e.target.value) {
           setLoading(true);
           fetch(`${api}?${searchBy}=${e.target.value}`)
-            .then(response => response.json())
+            .then((response) => response.json())
             .then((response) => {
               setLoading(false);
               setData(
-                _.map(response, x => ({
+                _.map(response, (x) => ({
                   key: x[keyFieldName],
                   text: x[textFieldName],
                   value: x[valueFieldName],

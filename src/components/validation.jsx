@@ -16,18 +16,18 @@ export const required = (value) => {
 
 // (value && value.trim() !== '' ? undefined : 'This is a required field.');
 
-export const maxLength = max => value => (value && value.length > max ? `Must be ${max} characters or less` : undefined);
+export const maxLength = (max) => (value) => (value && value.length > max ? `Must be ${max} characters or less` : undefined);
 
 export const maxLength255 = maxLength(255);
 
-export const percentage = value => (value > 100 ? 'Invalid percentage amount' : undefined);
+export const percentage = (value) => (value > 100 ? 'Invalid percentage amount' : undefined);
 
-export const number = value => (value && Number.isNaN(Number(value)) ? 'Must be a number' : undefined);
+export const number = (value) => (value && Number.isNaN(Number(value)) ? 'Must be a number' : undefined);
 
-export const minValue = min => value => (value && value < min ? `Must be at least ${min}` : undefined);
+export const minValue = (min) => (value) => (value && value < min ? `Must be at least ${min}` : undefined);
 
-export const email = value => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+export const email = (value) => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
   ? 'Invalid email address'
   : undefined);
 
-export const username = value => (value && !/^[A-Z0-9_]+$/i.test(value) ? 'Invalid username' : undefined);
+export const username = (value) => (value && !/^[A-Z0-9_]+$/i.test(value) ? 'Invalid username' : undefined);

@@ -4,24 +4,26 @@ import { Form, TextArea } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 import { required } from './validation';
 
-const renderField = ({
-  placeholder,
-  id,
-  input,
-  label,
-  meta: { touched, error },
-  className,
-  disabled,
-  size,
-  readOnly,
-  handleOnChange,
-}) => (
+const renderField = (fields) => {
+  const {
+    placeholder,
+    id,
+    input,
+    label,
+    meta: { touched, error },
+    className,
+    disabled,
+    size,
+    readOnly,
+    handleOnChange,
+  } = fields;
+  return (
     <Form.Field className={className} error={touched && error && true}>
       {label && (
-        <label htmlFor={id}>
-          {label}
-          <small>{touched && error ? `* ( ${error} )` : undefined}</small>
-        </label>
+      <label htmlFor={id}>
+        {label}
+        <small>{touched && error ? `* ( ${error} )` : undefined}</small>
+      </label>
       )}
       <TextArea
         {...input}
@@ -39,6 +41,7 @@ const renderField = ({
       />
     </Form.Field>
   );
+};
 
 const TextAreaField = ({
   name,

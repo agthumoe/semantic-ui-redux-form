@@ -37,6 +37,8 @@ const renderField = (fields) => {
         disabled={disabled}
         fluid={fluid}
         icon={icon}
+        id={id}
+        name={input.name}
         loading={loading}
         multiple={multiple}
         onChange={(event, d) => {
@@ -119,7 +121,7 @@ const DropdownField = ({
 
 DropdownField.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.oneOfType(PropTypes.string, PropTypes.number).isRequired,
     text: PropTypes.oneOfType(PropTypes.string, PropTypes.number).isRequired,
     value: PropTypes.oneOfType([
@@ -128,7 +130,7 @@ DropdownField.propTypes = {
       PropTypes.object,
       PropTypes.bool,
     ]).isRequired,
-  }),
+  })),
   disabled: PropTypes.bool,
   fluid: PropTypes.bool,
   icon: PropTypes.string,
@@ -162,6 +164,7 @@ DropdownField.defaultProps = {
   readOnly: false,
   search: false,
   className: '',
+  data: [],
   fluid: false,
   icon: 'dropdown',
   loading: false,
