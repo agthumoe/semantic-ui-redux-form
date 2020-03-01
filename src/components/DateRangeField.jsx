@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { DateInput } from 'semantic-ui-calendar-react';
+import { DatesRangeInput } from 'semantic-ui-calendar-react';
 import { Field as ReduxField } from 'redux-form';
+import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
-import { required } from './validation';
 
 const renderField = (fields) => {
   const {
-    id,
     label,
     className,
+    id,
     meta: { touched, error },
     input,
     handleOnChange,
@@ -23,41 +22,39 @@ const renderField = (fields) => {
           <small>{touched && error ? `* ( ${error} )` : undefined}</small>
         </label>
       )}
-      <DateInput
+      <DatesRangeInput
         {...rest}
-        {...input}
+        name={input.name}
         id={id}
-        animation="fade"
+        value={input.value ? `${input.value.from} - ${input.value.to}` : ''}
         onChange={(event, data) => {
-          if (typeof handleOnChange === 'function') {
-            handleOnChange(event, data);
+          const normalized = { from: '', to: '' };
+          if (data && data.value) {
+            const [from, to] = data.value.split(' - ');
+            normalized.from = from;
+            normalized.to = to;
           }
-          input.onChange(data.value);
+          input.onChange(normalized);
+          if (typeof handleOnChange === 'function') {
+            handleOnChange(normalized);
+          }
         }}
-        value={input.value}
       />
     </Form.Field>
   );
 };
 
-const DateField = ({
-  isRequired, validate, onChange, ...rest
-}) => {
-  const newValidator = validate.slice();
-  if (isRequired) {
-    newValidator.push(required);
-  }
-  return (
-    <ReduxField
-      {...rest}
-      component={renderField}
-      handleOnChange={onChange}
-      validate={newValidator}
-    />
-  );
-};
+const DateRangeField = ({
+  onChange, ...rest
+}) => (
+  <ReduxField
+    {...rest}
+    handleOnChange={onChange}
+    component={renderField}
+  />
+);
 
-DateField.propTypes = {
+DateRangeField.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   fluid: PropTypes.bool,
@@ -91,7 +88,7 @@ DateField.propTypes = {
   validate: PropTypes.arrayOf(PropTypes.func),
 };
 
-DateField.defaultProps = {
+DateRangeField.defaultProps = {
   validate: [],
   label: '',
   className: '',
@@ -106,4 +103,4 @@ DateField.defaultProps = {
   popupPosition: 'top left',
 };
 
-export default DateField;
+export default DateRangeField;
