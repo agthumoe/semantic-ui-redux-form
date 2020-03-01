@@ -1,0 +1,7 @@
+.vscode
+dist/**
+coverage/**
+node_modules/**
+git/**
+config.js
+webpack.config.js

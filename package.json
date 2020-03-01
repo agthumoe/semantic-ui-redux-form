@@ -1,0 +1,45 @@
+{
+  "name": "semantic-ui-redux-form",
+  "version": "1.0.0",
+  "description": "Semantic UI react redux form ready to use fields",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf lib",
+    "build": "babel --source-maps -d lib/ src/",
+    "lint": "eslint --fix src/ --ext .jsx,.js",
+    "prepublish": "yarn clean && yarn build"
+  },
+  "keywords": [
+    "semantic-ui",
+    "react",
+    "redux-form"
+  ],
+  "author": "Aung Thu Moe (agthumoe@gmail.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/preset-react": "^7.8.3",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "react": "^16.13.0",
+    "rimraf": "^3.0.2"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.15",
+    "react": "^16.13.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-form": "^8.3.0",
+    "semantic-ui-calendar-react": "^0.15.3",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2"
+  }
+}
