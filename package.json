@@ -1,6 +1,6 @@
 {
   "name": "semantic-ui-redux-form",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Semantic UI react redux form ready to use fields",
   "main": "lib/index.js",
   "scripts": {
@@ -36,6 +36,7 @@
   },
   "peerDependencies": {
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "react": "^16.13.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
