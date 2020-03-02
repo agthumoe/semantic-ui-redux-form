@@ -72,7 +72,7 @@ const TextAreaField = ({
       placeholder={placeholder}
       readOnly={readOnly}
       size={size}
-      validate={validate}
+      validate={newValidator}
     />
   );
 };

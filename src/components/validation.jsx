@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const required = (value) => {
   if (value && typeof value === 'string' && value.trim() !== '') {
     return undefined;
@@ -9,6 +11,12 @@ export const required = (value) => {
     return undefined;
   }
   if (typeof value === 'boolean') {
+    return undefined;
+  }
+  if (moment.isMoment(value) && value.isValid()) {
+    return undefined;
+  }
+  if (typeof value === 'object') {
     return undefined;
   }
   return 'This field is required.';

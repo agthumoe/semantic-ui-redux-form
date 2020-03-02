@@ -3,6 +3,8 @@ import { DatesRangeInput } from 'semantic-ui-calendar-react';
 import { Field as ReduxField } from 'redux-form';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
+import moment from 'moment';
+import { required } from './validation';
 
 const renderField = (fields) => {
   const {
@@ -12,6 +14,7 @@ const renderField = (fields) => {
     meta: { touched, error },
     input,
     handleOnChange,
+    dateFormat,
     ...rest
   } = fields;
   return (
@@ -26,13 +29,25 @@ const renderField = (fields) => {
         {...rest}
         name={input.name}
         id={id}
-        value={input.value ? `${input.value.from} - ${input.value.to}` : ''}
+        dateFormat={dateFormat}
+        animation="fade"
+        value={
+          input.value && (input.value.from || input.value.to)
+            ? `${
+              input.value.from
+                ? moment(input.value.from).format(dateFormat)
+                : ''
+            } - ${
+              input.value.to ? moment(input.value.to).format(dateFormat) : ''
+            }`
+            : ''
+        }
         onChange={(event, data) => {
           const normalized = { from: '', to: '' };
           if (data && data.value) {
             const [from, to] = data.value.split(' - ');
-            normalized.from = from;
-            normalized.to = to;
+            normalized.from = moment(from, dateFormat);
+            normalized.to = to ? moment(to, dateFormat) : '';
           }
           input.onChange(normalized);
           if (typeof handleOnChange === 'function') {
@@ -44,17 +59,24 @@ const renderField = (fields) => {
   );
 };
 
-const DateRangeField = ({
-  onChange, ...rest
-}) => (
-  <ReduxField
-    {...rest}
-    handleOnChange={onChange}
-    component={renderField}
-  />
-);
+const DatesRangeField = ({
+  validate, isRequired, onChange, ...rest
+}) => {
+  const newValidator = validate.slice();
+  if (isRequired) {
+    newValidator.push(required);
+  }
+  return (
+    <ReduxField
+      {...rest}
+      handleOnChange={onChange}
+      component={renderField}
+      validate={newValidator}
+    />
+  );
+};
 
-DateRangeField.propTypes = {
+DatesRangeField.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   fluid: PropTypes.bool,
@@ -86,9 +108,10 @@ DateRangeField.propTypes = {
     'normal',
   ]),
   validate: PropTypes.arrayOf(PropTypes.func),
+  dateFormat: PropTypes.string,
 };
 
-DateRangeField.defaultProps = {
+DatesRangeField.defaultProps = {
   validate: [],
   label: '',
   className: '',
@@ -101,6 +124,7 @@ DateRangeField.defaultProps = {
   icon: '',
   size: null,
   popupPosition: 'top left',
+  dateFormat: 'DD-MM-YYYY',
 };
 
-export default DateRangeField;
+export default DatesRangeField;

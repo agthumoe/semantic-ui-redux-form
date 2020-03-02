@@ -1,7 +1,8 @@
 import AsnycDropdownField from './components/AsyncDropdownField';
 import CheckboxField from './components/CheckboxField';
 import DateField from './components/DateField';
-import DateRangeField from './components/DateRangeField';
+import DatesRangeField from './components/DatesRangeField';
+import DateTimeField from './components/DateTimeField';
 import DropdownField from './components/DropdownField';
 import Field from './components/Field';
 import RadioField from './components/RadioField';
@@ -21,7 +22,8 @@ export default Field;
 export {
   Field,
   AsnycDropdownField,
-  DateRangeField,
+  DatesRangeField,
+  DateTimeField,
   CheckboxField,
   DateField,
   DropdownField,

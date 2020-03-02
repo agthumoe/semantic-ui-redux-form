@@ -95,7 +95,7 @@ const Field = ({
       readOnly={readOnly}
       size={size}
       type={type}
-      validate={validate}
+      validate={newValidator}
     />
   );
 };
