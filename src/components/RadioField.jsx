@@ -34,8 +34,8 @@ const renderField = (fields) => {
             onChange={(e, v) => {
               if (typeof onHandleChange === 'function') {
                 onHandleChange(e, v);
-                onChange(v.value);
               }
+              onChange(v.value);
             }}
           />
         ))}

@@ -89,6 +89,7 @@ const AsnycDropdownField = ({
   keyFieldName,
   valueFieldName,
   textFieldName,
+  apiKey,
   api,
 }) => {
   const newValidator = validate.slice();
@@ -131,7 +132,13 @@ const AsnycDropdownField = ({
         }
         if (searchBy && e.target.value) {
           setLoading(true);
-          fetch(`${api}?${searchBy}=${e.target.value}`)
+          const headers = new Headers();
+          if (apiKey) {
+            headers.append('Authorization', `Bearer ${apiKey}`);
+          }
+          fetch(`${api}?${searchBy}=${e.target.value}`, {
+            headers,
+          })
             .then((response) => response.json())
             .then((response) => {
               setLoading(false);
@@ -191,6 +198,7 @@ AsnycDropdownField.propTypes = {
   textFieldName: PropTypes.string,
   validate: PropTypes.arrayOf(PropTypes.func),
   valueFieldName: PropTypes.string,
+  apiKey: PropTypes.string,
 };
 
 AsnycDropdownField.defaultProps = {
@@ -213,6 +221,7 @@ AsnycDropdownField.defaultProps = {
   keyFieldName: 'key',
   textFieldName: 'text',
   valueFieldName: 'value',
+  apiKey: null,
 };
 
 export default AsnycDropdownField;
