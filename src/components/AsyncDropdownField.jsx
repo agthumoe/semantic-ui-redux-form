@@ -92,6 +92,10 @@ const AsnycDropdownField = ({
   apiKey,
   api,
 }) => {
+  const headers = new Headers();
+  if (apiKey) {
+    headers.append('Authorization', `Bearer ${apiKey}`);
+  }
   const newValidator = validate.slice();
   if (isRequired) {
     newValidator.push(required);
@@ -102,7 +106,7 @@ const AsnycDropdownField = ({
 
   useEffect(() => {
     setLoading(true);
-    fetch(api)
+    fetch(api, { headers })
       .then((response) => response.json())
       .then((response) => {
         setLoading(false);
@@ -132,13 +136,7 @@ const AsnycDropdownField = ({
         }
         if (searchBy && e.target.value) {
           setLoading(true);
-          const headers = new Headers();
-          if (apiKey) {
-            headers.append('Authorization', `Bearer ${apiKey}`);
-          }
-          fetch(`${api}?${searchBy}=${e.target.value}`, {
-            headers,
-          })
+          fetch(`${api}?${searchBy}=${e.target.value}`, { headers })
             .then((response) => response.json())
             .then((response) => {
               setLoading(false);
