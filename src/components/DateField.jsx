@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { Field as ReduxField } from 'redux-form';
 import { Form } from 'semantic-ui-react';
+import moment from 'moment';
 import { required } from './validation';
 
 const renderField = (fields) => {
@@ -13,6 +14,7 @@ const renderField = (fields) => {
     meta: { touched, error },
     input,
     handleOnChange,
+    dateFormat,
     ...rest
   } = fields;
   return (
@@ -26,15 +28,17 @@ const renderField = (fields) => {
       <DateInput
         {...rest}
         {...input}
+        dateFormat={dateFormat}
         id={id}
         animation="fade"
         onChange={(event, data) => {
+          const normalised = moment(data.value, dateFormat);
           if (typeof handleOnChange === 'function') {
-            handleOnChange(event, data);
+            handleOnChange(event, normalised);
           }
-          input.onChange(data.value);
+          input.onChange(normalised);
         }}
-        value={input.value}
+        value={moment.isMoment(input.value) ? input.value.format(dateFormat) : input.value}
       />
     </Form.Field>
   );

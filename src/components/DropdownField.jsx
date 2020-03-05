@@ -122,8 +122,8 @@ const DropdownField = ({
 DropdownField.propTypes = {
   className: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.oneOfType(PropTypes.string, PropTypes.number).isRequired,
-    text: PropTypes.oneOfType(PropTypes.string, PropTypes.number).isRequired,
+    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
