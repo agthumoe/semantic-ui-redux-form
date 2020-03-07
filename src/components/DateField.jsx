@@ -38,7 +38,7 @@ const renderField = (fields) => {
           }
           input.onChange(normalised);
         }}
-        value={(moment.isMoment(input.value) || moment.isDate(input.value)) ? moment(input.value).format(dateFormat) : input.value}
+        value={moment.isMoment(input.value) ? input.value.format(dateFormat) : input.value}
       />
     </Form.Field>
   );
@@ -72,6 +72,7 @@ DateField.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  dateFormat: PropTypes.string,
   popupPosition: PropTypes.oneOf([
     'top left',
     'top right',
@@ -108,6 +109,7 @@ DateField.defaultProps = {
   icon: '',
   size: null,
   popupPosition: 'top left',
+  dateFormat: 'DD-MM-YYYY',
 };
 
 export default DateField;
