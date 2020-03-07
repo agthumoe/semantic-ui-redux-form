@@ -38,7 +38,7 @@ const renderField = (fields) => {
           }
           input.onChange(normalised);
         }}
-        value={moment.isMoment(input.value) ? input.value.format(dateFormat) : input.value}
+        value={(moment.isMoment(input.value) || moment.isDate(input.value)) ? moment(input.value).format(dateFormat) : input.value}
       />
     </Form.Field>
   );
