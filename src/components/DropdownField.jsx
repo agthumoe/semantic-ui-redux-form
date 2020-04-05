@@ -11,6 +11,7 @@ const renderField = (fields) => {
     placeholder,
     loading,
     disabled,
+    clearable,
     readOnly,
     className,
     fluid,
@@ -38,6 +39,7 @@ const renderField = (fields) => {
         fluid={fluid}
         icon={icon}
         id={id}
+        clearable={clearable}
         name={input.name}
         loading={loading}
         multiple={multiple}
@@ -71,6 +73,7 @@ const renderField = (fields) => {
 const DropdownField = ({
   validate,
   id,
+  clearable,
   name,
   label,
   placeholder,
@@ -96,6 +99,7 @@ const DropdownField = ({
 
   return (
     <Field
+      clearable={clearable}
       className={className}
       component={renderField}
       data={data}
@@ -121,6 +125,7 @@ const DropdownField = ({
 
 DropdownField.propTypes = {
   className: PropTypes.string,
+  clearable: PropTypes.bool,
   data: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -160,6 +165,7 @@ DropdownField.propTypes = {
 
 DropdownField.defaultProps = {
   validate: [],
+  clearable: false,
   label: '',
   readOnly: false,
   search: false,

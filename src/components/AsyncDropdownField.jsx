@@ -9,22 +9,15 @@ const renderField = (fields) => {
   const {
     id,
     label,
-    placeholder,
-    loading,
-    disabled,
-    readOnly,
     className,
-    fluid,
-    icon,
     multiple,
-    size,
     search,
     handleOnSearch,
     handleOnChange,
     input,
     data,
-    allowAdditions,
     meta: { touched, error },
+    ...rest
   } = fields;
 
   return (
@@ -36,12 +29,7 @@ const renderField = (fields) => {
         </label>
       )}
       <Dropdown
-        allowAdditions={allowAdditions}
-        disabled={disabled}
-        fluid={fluid}
-        icon={icon}
-        loading={loading}
-        multiple={multiple}
+        {...rest}
         onChange={(event, d) => {
           if (typeof handleOnChange === 'function') {
             handleOnChange(event, d);
@@ -56,11 +44,8 @@ const renderField = (fields) => {
           handleOnSearch(e, v);
         }}
         options={data}
-        placeholder={placeholder}
-        readOnly={readOnly}
         search={!!search}
         selection
-        size={size}
         value={input.value}
       />
     </Form.Field>
@@ -69,19 +54,8 @@ const renderField = (fields) => {
 
 const AsnycDropdownField = ({
   validate,
-  id,
-  name,
-  label,
-  placeholder,
   isRequired,
-  disabled,
-  readOnly,
-  className,
-  fluid,
-  icon,
-  size,
   search,
-  multiple,
   searchBy,
   onSearch,
   onAddNew,
@@ -91,6 +65,7 @@ const AsnycDropdownField = ({
   textFieldName,
   apiKey,
   api,
+  ...rest
 }) => {
   const headers = new Headers();
   if (apiKey) {
@@ -122,12 +97,10 @@ const AsnycDropdownField = ({
 
   return (
     <Field
+      {...rest}
       allowAdditions={typeof onAddNew === 'function'}
-      className={className}
       component={renderField}
       data={data}
-      disabled={disabled}
-      fluid={fluid}
       handleOnAddNew={onAddNew}
       handleOnChange={onChange}
       handleOnSearch={(e, v) => {
@@ -150,16 +123,8 @@ const AsnycDropdownField = ({
             });
         }
       }}
-      icon={icon}
-      id={id}
-      label={label}
       loading={loading}
-      multiple={multiple}
-      name={name}
-      placeholder={placeholder}
-      readOnly={readOnly}
       search={search || searchBy || false}
-      size={size}
       validate={newValidator}
     />
   );
@@ -167,6 +132,7 @@ const AsnycDropdownField = ({
 
 AsnycDropdownField.propTypes = {
   api: PropTypes.string.isRequired,
+  clearable: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   fluid: PropTypes.bool,
@@ -201,6 +167,7 @@ AsnycDropdownField.propTypes = {
 
 AsnycDropdownField.defaultProps = {
   validate: [],
+  clearable: false,
   label: '',
   readOnly: false,
   className: '',

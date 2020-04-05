@@ -8,18 +8,13 @@ const renderField = (fields) => {
   const {
     id,
     label,
-    placeholder,
-    type,
     className,
-    readOnly,
-    disabled,
-    fluid,
     icon,
-    loading,
     size,
     input,
     meta: { touched, error },
     handleOnChange,
+    ...rest
   } = fields;
 
   return (
@@ -31,43 +26,27 @@ const renderField = (fields) => {
         </label>
       )}
       <Input
+        {...rest}
         {...input}
-        disabled={disabled}
-        fluid={fluid}
         icon={icon || undefined}
-        id={id}
-        loading={loading}
         onChange={(event, data) => {
           if (typeof handleOnChange === 'function') {
             handleOnChange(event, data);
           }
           input.onChange(event);
         }}
-        placeholder={placeholder}
-        readOnly={readOnly}
         size={size || undefined}
-        type={type}
       />
     </Form.Field>
   );
 };
 
 const Field = ({
-  label,
-  name,
-  placeholder,
-  id,
   type,
-  disabled,
-  readOnly,
   isRequired,
-  className,
-  fluid,
-  icon,
-  loading,
-  size,
   validate,
   onChange,
+  ...rest
 }) => {
   const newValidator = validate.slice();
   if (isRequired) {
@@ -81,20 +60,9 @@ const Field = ({
   }
   return (
     <ReduxField
-      className={className}
+      {...rest}
       component={renderField}
-      disabled={disabled}
-      fluid={fluid}
       handleOnChange={onChange}
-      icon={icon}
-      id={id}
-      label={label}
-      loading={loading}
-      name={name}
-      placeholder={placeholder}
-      readOnly={readOnly}
-      size={size}
-      type={type}
       validate={newValidator}
     />
   );
@@ -104,7 +72,7 @@ Field.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   fluid: PropTypes.bool,
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   id: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
