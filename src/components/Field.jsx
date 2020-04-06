@@ -61,6 +61,7 @@ const Field = ({
   return (
     <ReduxField
       {...rest}
+      type={type}
       component={renderField}
       handleOnChange={onChange}
       validate={newValidator}
