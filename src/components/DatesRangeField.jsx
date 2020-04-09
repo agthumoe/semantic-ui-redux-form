@@ -35,10 +35,10 @@ const renderField = (fields) => {
           input.value && (input.value.from || input.value.to)
             ? `${
               input.value.from
-                ? moment(input.value.from).startOf('day').format(dateFormat)
+                ? moment(input.value.from).format(dateFormat)
                 : ''
             } - ${
-              input.value.to ? moment(input.value.to).endOf('day').format(dateFormat) : ''
+              input.value.to ? moment(input.value.to).format(dateFormat) : ''
             }`
             : ''
         }
@@ -46,8 +46,8 @@ const renderField = (fields) => {
           const normalized = { from: '', to: '' };
           if (data && data.value) {
             const [from, to] = data.value.split(' - ');
-            normalized.from = moment(from, dateFormat);
-            normalized.to = to ? moment(to, dateFormat) : '';
+            normalized.from = moment(from, dateFormat).startOf('day');
+            normalized.to = to ? moment(to, dateFormat).endOf('day') : '';
           }
           input.onChange(normalized);
           if (typeof handleOnChange === 'function') {
