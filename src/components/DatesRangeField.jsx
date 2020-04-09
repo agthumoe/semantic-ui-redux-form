@@ -35,10 +35,10 @@ const renderField = (fields) => {
           input.value && (input.value.from || input.value.to)
             ? `${
               input.value.from
-                ? moment(input.value.from).format(dateFormat)
+                ? moment(input.value.from).startOf('day').format(dateFormat)
                 : ''
             } - ${
-              input.value.to ? moment(input.value.to).format(dateFormat) : ''
+              input.value.to ? moment(input.value.to).endOf('day').format(dateFormat) : ''
             }`
             : ''
         }
