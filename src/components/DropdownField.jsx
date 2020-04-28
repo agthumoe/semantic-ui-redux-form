@@ -20,6 +20,7 @@ const renderField = (fields) => {
     size,
     handleOnSearch,
     handleOnChange,
+    handleOnAddNew,
     input,
     multiple,
     data,
@@ -56,6 +57,12 @@ const renderField = (fields) => {
         onSearchChange={(event) => {
           if (typeof handleOnSearch === 'function') {
             handleOnSearch(event.target.value);
+          }
+        }}
+        allowAdditions={typeof handleOnAddNew === 'function'}
+        onAddItem={(event, d) => {
+          if (typeof handleOnAddNew === 'function') {
+            handleOnAddNew(event, d);
           }
         }}
         options={data}
