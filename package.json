@@ -1,6 +1,6 @@
 {
   "name": "semantic-ui-redux-form",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Semantic UI react redux form ready to use fields",
   "main": "lib/index.js",
   "scripts": {
