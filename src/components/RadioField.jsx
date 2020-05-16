@@ -96,6 +96,7 @@ RadioField.propTypes = {
         PropTypes.string,
         PropTypes.number,
         PropTypes.object,
+        PropTypes.bool,
       ]).isRequired,
     }),
   ),
